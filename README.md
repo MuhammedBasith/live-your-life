@@ -55,8 +55,8 @@ LiveYourLife is a minimalist React Native Expo application designed to visually 
 
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repo-url>
-    cd muhammedbasith-live-your-life
+    git clone https://github.com/MuhammedBasith/live-your-life.git
+    cd live-your-life
     ```
 
 2.  **Install dependencies:**
