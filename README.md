@@ -82,4 +82,3 @@ LiveYourLife is a minimalist React Native Expo application designed to visually 
 ---
 
 Enjoy tracking your year! ✨
-```
