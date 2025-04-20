@@ -1,23 +1,26 @@
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Linking } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useRouter } from 'expo-router';
 import { Flower, Grid2x2 as Grid } from 'lucide-react-native';
 import { useAppContext } from '@/context/AppContext';
-import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 import { useDaysPassed } from '@/hooks/useDaysPassed';
 
 export default function BottomBar({ state, navigation }: BottomTabBarProps) {
   const router = useRouter();
   const { activeTab, setActiveTab } = useAppContext();
   const { trialDaysLeft } = useDaysPassed();
-  
+
   const handleTabPress = (tabName: string, index: number) => {
     const isFocused = state.index === index;
-    
+
     if (isFocused) {
       return;
     }
-    
+
     setActiveTab(tabName);
     navigation.navigate(tabName);
   };
@@ -30,24 +33,24 @@ export default function BottomBar({ state, navigation }: BottomTabBarProps) {
   return (
     <View style={styles.container}>
       <View style={styles.tabBarContainer}>
-        <TouchableOpacity 
-          style={styles.tabButton} 
+        <TouchableOpacity
+          style={styles.tabButton}
           onPress={() => handleTabPress('settings', 1)}
         >
           <Flower size={20} color={getDotColor(1)} />
         </TouchableOpacity>
-        
-        <Animated.View 
+
+        <Animated.View
           style={[
             styles.slider,
             {
               transform: [{ translateX: state.index === 0 ? 0 : 44 }],
-            }
+            },
           ]}
         />
 
-        <TouchableOpacity 
-          style={styles.tabButton} 
+        <TouchableOpacity
+          style={styles.tabButton}
           onPress={() => handleTabPress('index', 0)}
         >
           <Grid size={20} color={getDotColor(0)} />
@@ -55,7 +58,13 @@ export default function BottomBar({ state, navigation }: BottomTabBarProps) {
       </View>
 
       <Text style={styles.trialText}>
-        trial ends in <Text style={styles.trialDays}>{trialDaysLeft.toString().padStart(2, '0')}</Text> days
+        made with ❤️ by{' '}
+        <Text
+          style={styles.trialDays}
+          onPress={() => Linking.openURL('https://basith.me')}
+        >
+          basith.
+        </Text>
       </Text>
     </View>
   );
@@ -101,5 +110,6 @@ const styles = StyleSheet.create({
   trialDays: {
     color: 'white',
     fontWeight: '500',
+    textDecorationLine: 'underline',
   },
 });
